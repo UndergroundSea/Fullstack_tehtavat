@@ -5,6 +5,7 @@ const Course = ({course}) => {
     <div>
       <Header course={course.name} />
       <Content parts={course.parts} />
+      <Total parts={course.parts} /> 
     </div>    
   )
 }
@@ -22,12 +23,9 @@ const Header = (props) => {
 const Content = (props) => {
   return (
     <div>
-      
       {props.parts.map((part, i) =>
-        <Part key={part.id} part={props.parts[i].name} exercises={props.parts.exercises} />
-      )}
-      
-      
+        <Part key={part.id} part={props.parts[i].name} exercises={props.parts[i].exercises} />
+      )}  
     </div>
   )
 }
@@ -42,11 +40,15 @@ const Part = (props) => {
   )
 }
 
-const Total = (props) => {
+const Total = ({parts}) => {
+  {var total = 0}
   return (
     <div>
       <p>
-      Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}
+        {parts.forEach(part => {
+          total += part.exercises
+        })}
+      Number of exercises {total}
       </p>
     </div>
   )
