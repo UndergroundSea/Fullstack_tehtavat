@@ -10,6 +10,7 @@ const App = () => {
   const [ persons, setPersons] = useState([
     { name: 'Arto Hellas' , id: 0}
   ]) 
+  const [ names, setNames] = useState(['Arto Hellas'])
   const [ newName, setNewName ] = useState('')
 
   const addName = (event) => {
@@ -18,8 +19,15 @@ const App = () => {
       name: newName,
       id: persons.length + 1,
     }
-
-    setPersons(persons.concat(nameObject))
+    
+    {(() => {
+      switch (names.includes(nameObject.name)) {
+        case true:   return window.alert(`${newName} is already added to phonebook`);
+        case false: return setPersons(persons.concat(nameObject)), setNames(names.concat(nameObject.name));
+      }
+    })()}
+    
+    /*setPersons(persons.concat(nameObject))*/
     setNewName('')
   }
 
@@ -47,6 +55,7 @@ const App = () => {
           <Name key={name.id} name={name} />  
         )}
       <div>debug: {newName}</div>
+      <div>debug: {names}</div>
     </div>
   )
 
