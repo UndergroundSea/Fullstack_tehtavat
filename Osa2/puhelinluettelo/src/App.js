@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
-
-const Name = ({ name }) => {
-  return (
-    <p>{name.name} {name.number}</p>
-  )
-}
+import Persons from './components/Persons'
+import Button from './components/Button'
 
 const App = () => {
   const [ persons, setPersons] = useState([
@@ -51,8 +47,8 @@ const App = () => {
       <form onSubmit={addName}>
         <div>
           name: <input 
-            value={newName}
-            onChange={handleNameChange}
+         value={newName}
+          onChange={handleNameChange}
           />
         </div>
         <div>
@@ -61,17 +57,10 @@ const App = () => {
           onChange={handleNumberChange}
           />
         </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
+        <Button text="add" />
       </form>
       <h2>Numbers</h2>
-        {persons.map(name =>
-          <Name key={name.id} name={name} number={name.number} />  
-        )}
-      <div>debug: {newName}</div>
-      <div>debug: {names}</div>
-      <div>debug: {newNumber}</div>
+      <Persons persons={persons} />
     </div>
   )
 
