@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import Persons from './components/Persons'
-import Button from './components/Button'
+import Form from './components/Form'
 
 const App = () => {
-  const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas' , number:'040-1231244' , id: 0}
-  ]) 
-  const [ names, setNames] = useState(['Arto Hellas'])
-  const [ numbers, setNumbers] = useState(['040-1231244'])
-  const [ newName, setNewName ] = useState('')
-  const [ newNumber, setNewNumber ] = useState('')
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-1231244', id: 0 }
+  ])
+  const [names, setNames] = useState(['Arto Hellas'])
+  const [numbers, setNumbers] = useState(['040-1231244'])
+  const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const addName = (event) => {
     event.preventDefault()
@@ -18,23 +18,25 @@ const App = () => {
       number: newNumber,
       id: persons.length + 1,
     }
-    
-    {(() => {
-      switch (names.includes(nameObject.name)) {
-        case true:   return window.alert(`${newName} is already added to phonebook`);
-        case false: return setPersons(persons.concat(nameObject)), setNames(names.concat(nameObject.name));
-      }
-    })()}
-    
+
+    {
+      (() => {
+        switch (names.includes(nameObject.name)) {
+          case true: return window.alert(`${newName} is already added to phonebook`);
+          case false: return setPersons(persons.concat(nameObject)), setNames(names.concat(nameObject.name));
+        }
+      })()
+    }
+
     /*setPersons(persons.concat(nameObject))*/
     setNewName('')
     setNewNumber('')
   }
 
-  const handleNameChange = (event) => {
+  const handleNameChange = useCallback((event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
-  }
+  }, [newName])
 
   const handleNumberChange = (event) => {
     console.log(event.target.value)
@@ -44,21 +46,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addName}>
-        <div>
-          name: <input 
-         value={newName}
-          onChange={handleNameChange}
-          />
-        </div>
-        <div>
-          number: <input 
-          value={newNumber}
-          onChange={handleNumberChange}
-          />
-        </div>
-        <Button text="add" />
-      </form>
+      <Form addName={addName} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
       <Persons persons={persons} />
     </div>
