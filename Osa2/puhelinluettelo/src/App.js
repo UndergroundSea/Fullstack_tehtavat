@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import axios from 'axios'
 import Persons from './components/Persons'
 import Form from './components/Form'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -13,10 +14,10 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPersons => {
+      setPersons(initialPersons)
       })
   }, [])
 
@@ -37,13 +38,13 @@ const App = () => {
       })()
     }
 
-    axios
-    .post('http://localhost:3001/persons', nameObject)
-    .then(response => {
-      console.log(response)
-    })
+    personService
+      .create(nameObject)
+        .then(response => {
+          setPersons(persons.concat(response))
+          setNames(names.concat(response.name))
+        })
 
-    /*setPersons(persons.concat(nameObject))*/
     setNewName('')
     setNewNumber('')
   }
