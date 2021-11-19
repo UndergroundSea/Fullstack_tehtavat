@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import axios from 'axios'
 import Persons from './components/Persons'
 import Form from './components/Form'
+import Notifications from './components/Notifications'
 import personService from './services/persons'
 
 const App = () => {
@@ -12,6 +13,21 @@ const App = () => {
   const [numbers, setNumbers] = useState(['040-1231244'])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [message, setMessage] = useState(' ')
+
+  const handleDeletePerson= id =>{
+    const person=persons.find(p=>p.id===id)
+
+    personService
+      .remove(person.id)
+      .then(()=>{
+        personService
+          .getPersons()
+            .then((persons)=>{
+              setPersons(persons)
+            })
+      })
+  }
 
   useEffect(() => {
     personService
@@ -33,17 +49,17 @@ const App = () => {
       (() => {
         switch (names.includes(nameObject.name)) {
           case true: return window.alert(`${newName} is already added to phonebook`);
-          case false: return setPersons(persons.concat(nameObject)), setNames(names.concat(nameObject.name));
+          case false: personService
+          .create(nameObject)
+            .then(response => {
+              setPersons(persons.concat(response))
+              setNames(names.concat(response.name))
+              setMessage(`${response.name} was added`)
+            })
+    
         }
       })()
     }
-
-    personService
-      .create(nameObject)
-        .then(response => {
-          setPersons(persons.concat(response))
-          setNames(names.concat(response.name))
-        })
 
     setNewName('')
     setNewNumber('')
@@ -62,9 +78,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notifications message={message}/>
       <Form addName={addName} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <Persons persons={persons} />
+      <Persons persons={persons} handleDeletePerson={()=>handleDeletePerson()} />
     </div>
   )
 

@@ -39,6 +39,41 @@
       "name": "Alan Turing",
       "number": "000-0000000",
       "id": 8
+    },
+    {
+      "name": "Elon Musk",
+      "number": "717-1717171",
+      "id": 9
+    },
+    {
+      "name": "Chuck Norris",
+      "number": "010-110110001",
+      "id": 10
+    },
+    {
+      "name": "Bob the Builder",
+      "number": "1223334444",
+      "id": 11
+    },
+    {
+      "name": "Master Yoda",
+      "number": "44-444",
+      "id": 12
+    },
+    {
+      "name": "Ash Ketchum",
+      "number": "987-987987",
+      "id": 13
+    },
+    {
+      "name": "Legolas",
+      "number": "3-333",
+      "id": 14
+    },
+    {
+      "name": "Jack Sparrow",
+      "number": "135-7924680",
+      "id": 15
     }
   ]
 }
