@@ -1,10 +1,10 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons'
+const baseUrl = 'http://localhost:3001/api/persons'
 
 const getAll = () => {
   return (
     axios
-    .get('http://localhost:3001/persons')
+    .get('http://localhost:3001/api/persons')
     .then(response => response.data)
   )
 }
@@ -12,7 +12,7 @@ const getAll = () => {
 const create = newObject => {
     return (
         axios
-    .post('http://localhost:3001/persons', newObject)
+    .post('http://localhost:3001/api/persons', newObject)
     .then(response => response.data)
     )
     
