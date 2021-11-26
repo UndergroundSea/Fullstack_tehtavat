@@ -4,7 +4,7 @@ const baseUrl = '/api/persons'
 const getAll = () => {
   return (
     axios
-    .get('http://localhost:3001/api/persons')
+    .get('/api/persons')
     .then(response => response.data)
   )
 }
@@ -12,7 +12,7 @@ const getAll = () => {
 const create = newObject => {
     return (
         axios
-    .post('http://localhost:3001/api/persons', newObject)
+    .post('/api/persons', newObject)
     .then(response => response.data)
     )
     
