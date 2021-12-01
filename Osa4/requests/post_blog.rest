@@ -1,0 +1,11 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "name": "Chuck Norris",
+    "number": "098-7654321",
+    "title": "Medium blog",
+    "author": "Saruman",
+    "url": "http://www.do-not-read.com",
+    "likes": 3
+}
