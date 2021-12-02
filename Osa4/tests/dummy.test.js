@@ -49,3 +49,17 @@ describe('favorite blog', () => {
         expect(result).toEqual(wanted)
     })
 })
+
+describe('most common writer', () => {
+    test('most common writer in an array', () => {
+        const result = listHelper.mostCommonWriter(manyBlogs)
+        const wanted = new TestBlog({
+            author: "Robert C. Martin",
+            blogs: 3,
+            _id: false
+        })
+        console.log('RESULT:', result)
+        console.log('WANTED:', wanted)
+        expect(result).toEqual(wanted)
+    })
+})

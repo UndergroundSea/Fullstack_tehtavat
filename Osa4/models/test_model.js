@@ -6,6 +6,7 @@ const testSchema = mongoose.Schema({
     title: String,
     author: String,
     likes: Number,
+    blogs: Number,
     _id: Boolean
 })
 

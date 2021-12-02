@@ -29,8 +29,36 @@ const favoriteBlog = (blogs) => {
     return blog
 }
 
+const mostCommonWriter = (blogs) => {
+    const authors = []
+    const written = []
+    const blog = new TestBlog({
+        author: '',
+        blogs: 0,
+        _id: false
+      })
+
+    for (let i = 0; i < blogs.length; i++) {
+        if (authors.includes(blogs[i].author)) {
+            written[authors.indexOf(blogs[i].author)]++
+        } else {
+            authors.push(blogs[i].author)
+            written.push(1)
+        }
+    }
+    /*console.log('AUTHOR:',authors[written.indexOf(Math.max(written))])
+    console.log('AUTHORS:',authors)
+    console.log('WRITTEN:',written)
+    console.log('INDEX:',written.indexOf(Math.max(written)))
+    console.log('MAX:',Math.max(...written))*/
+    blog.author = authors[written.indexOf(Math.max(...written))]
+    blog.blogs = written[written.indexOf(Math.max(...written))]
+    return blog
+}
+
 module.exports = {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    mostCommonWriter
 }
