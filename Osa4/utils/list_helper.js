@@ -56,9 +56,33 @@ const mostCommonWriter = (blogs) => {
     return blog
 }
 
+const mostLikes = (blogs) => {
+    const authors = []
+    const likes = []
+    const blog = new TestBlog({
+        author: '',
+        likes: 0,
+        _id: false
+      })
+
+    for (let i = 0; i < blogs.length; i++) {
+        if (authors.includes(blogs[i].author)) {
+            likes[authors.indexOf(blogs[i].author)] += blogs[i].likes
+        } else {
+            authors.push(blogs[i].author)
+            likes.push(blogs[i].likes)
+        }
+    }
+
+    blog.author = authors[likes.indexOf(Math.max(...likes))]
+    blog.likes = likes[likes.indexOf(Math.max(...likes))]
+    return blog
+}
+
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    mostCommonWriter
+    mostCommonWriter,
+    mostLikes
 }

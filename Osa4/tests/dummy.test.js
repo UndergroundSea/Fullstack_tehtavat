@@ -58,8 +58,20 @@ describe('most common writer', () => {
             blogs: 3,
             _id: false
         })
-        console.log('RESULT:', result)
-        console.log('WANTED:', wanted)
+        /*console.log('RESULT:', result)
+        console.log('WANTED:', wanted)*/
+        expect(result).toEqual(wanted)
+    })
+})
+
+describe('most likes', () => {
+    test('writer that has most likes in his or her blogs', () => {
+        const result = listHelper.mostLikes(manyBlogs)
+        const wanted = new TestBlog({
+            author: "Edsger W. Dijkstra",
+            likes: 17,
+            _id: false
+        })
         expect(result).toEqual(wanted)
     })
 })
