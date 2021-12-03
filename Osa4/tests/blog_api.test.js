@@ -164,6 +164,35 @@ test('a blog can be deleted', async () => {
     expect(titles).not.toContain(blogToDelete.title)
 })
 
+test('a blog can be updated', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToUpdate = blogsAtStart[0]
+    const newBlog = {
+        _id: "5a422a851b54a676234d17f7",
+        title: "React patterns",
+        author: "Michael Chan",
+        url: "https://reactpatterns.com/",
+        likes: 8,
+        __v: 0
+    }
+
+    await api
+        .put(`/api/blogs/${blogToUpdate.id}`)
+        .send(newBlog)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+    const blogsAtEnd = await helper.blogsInDb()
+
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
+
+    const titles = blogsAtEnd.map(r => r.title)
+    const likes = blogsAtEnd.map(r => r.likes)
+
+    expect(titles).toContain(blogToUpdate.title)
+    expect(blogsAtEnd[0].likes).toBe(blogsAtStart[0].likes+1)
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
