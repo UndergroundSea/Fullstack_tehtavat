@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Bad blog",
-    "author": "Jar-jar Binks",
-    "url": "http://www.mesa-coool.com",
-    "likes": -999
+    "title": "Very good blog!",
+    "author": "Jacky Chan",
+    "url": "https://www.kung_fu.com",
+    "likes": 99999,
+    "userId": "61aa4db8854e9a51dd798770"
 }

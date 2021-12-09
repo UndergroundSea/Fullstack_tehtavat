@@ -6,6 +6,7 @@ const app = require('../app')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -13,6 +14,9 @@ beforeEach(async () => {
     await blogObject.save()
     blogObject = new Blog(helper.initialBlogs[1])
     await blogObject.save()
+    await User.deleteMany({})
+    let userObject = new User(helper.initialPerson[0])
+    await userObject.save()
 })
 
 
@@ -42,6 +46,7 @@ test('blogs can be added with post', async () => {
         author: "Edsger W. Dijkstra",
         url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
         likes: 12,
+        userId: "5a422aa71b54a676234d17f9",
         __v: 0
     }
 
@@ -71,6 +76,7 @@ test('likes become 0 if not specified', async () => {
         title: "TDD harms architecture",
         author: "Robert C. Martin",
         url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
+        userId: "5a422aa71b54a676234d17f9",
         __v: 0
     }
 
@@ -93,6 +99,7 @@ describe('title or url missing', () => {
             author: "Robert C. Martin",
             url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
             likes: 2,
+            userId: "5a422aa71b54a676234d17f9",
             __v: 0
         }
 
@@ -112,6 +119,7 @@ describe('title or url missing', () => {
             title: "Type wars",
             author: "Robert C. Martin",
             likes: 2,
+            userId: "5a422aa71b54a676234d17f9",
             __v: 0
         }
 
