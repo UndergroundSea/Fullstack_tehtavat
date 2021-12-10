@@ -1,11 +1,11 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbGxhczUiLCJpZCI6IjYxYjFlMzAxODE1NDljMzBiYzgwZmIzNSIsImlhdCI6MTYzOTA2NTY1OX0._KeKP2k_yvXLqIMtVEfaME4gUSh3nJULsNic9AHzNSs
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbGxhczUiLCJpZCI6IjYxYjFlMzAxODE1NDljMzBiYzgwZmIzNSIsImlhdCI6MTYzOTEzNTM5NX0.NeugVeDX0kn2H9ZNOurgkPa4HfvJsiwqNQVYHt6hLe4
 
 {
-    "title": "Very good blog!",
-    "author": "Jacky Chan",
-    "url": "https://www.kung_fu.com",
-    "likes": 99999,
+    "title": "New blog!",
+    "author": "Newton",
+    "url": "https://www.new_site.com",
+    "likes": 5,
     "userId": "61aa4db8854e9a51dd798770"
 }
