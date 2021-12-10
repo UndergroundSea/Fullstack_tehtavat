@@ -8,7 +8,10 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [errorMessage, setErrorMessage] = useState(null)
+  //const [errorMessage, setErrorMessage] = useState(null)
+  const [newBlog, setNewBlog] = useState('')
+  const [newAuthor, setNewAuthor] = useState('')
+  const [newUrl, setNewUrl] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -41,12 +44,65 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('wrong credentials')
+      //setErrorMessage('wrong credentials')
       setTimeout(() => {
-        setErrorMessage(null)
+        //setErrorMessage(null)
       }, 5000)
     }
   }
+
+  const addBlog = (event) => {
+    event.preventDefault()
+    const blogObject = {
+      title: newBlog,
+      author: newAuthor,
+      url: newUrl,
+      user: user
+    }
+
+    blogService.create(blogObject).then(returnedBlog => {
+      setBlogs(blogs.concat(returnedBlog))
+      setNewBlog('')
+    })
+  }
+
+  /*const handleBlogChange = (event) => {
+    console.log(event.target.value)
+    setNewBlog(event.target.value)
+  }*/
+
+  const blogForm = () => (
+    <form onSubmit={addBlog}>
+      <div>
+            title:
+            <input
+              type="text"
+              value={newBlog}
+              name="Title"
+              onChange={({ target }) => setNewBlog(target.value)}
+            />
+          </div>
+          <div>
+            author:
+            <input
+              type="text"
+              value={newAuthor}
+              name="Author"
+              onChange={({ target }) => setNewAuthor(target.value)}
+            />
+          </div>
+          <div>
+            url:
+            <input
+              type="text"
+              value={newUrl}
+              name="Url"
+              onChange={({ target }) => setNewUrl(target.value)}
+            />
+          </div>
+      <button type="submit">create</button>
+    </form>
+  )
 
   const handleLogout = async (event) => {
     event.preventDefault()
@@ -87,9 +143,11 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <p>
-        {user.name} logged in 
+        {user.name} logged in
         <button onClick={handleLogout}>logout</button>
       </p>
+      <h2>create new</h2>
+      {blogForm()}
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}

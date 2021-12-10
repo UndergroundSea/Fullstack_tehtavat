@@ -2,11 +2,14 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const helper = require('./test_helper')
 const app = require('../app')
+const jwt = require('jsonwebtoken')
 
-const api = supertest(app)
+const api = supertest(app)//.set('Authorization', `Basic ${TOKEN}`)
 
 const Blog = require('../models/blog')
 const User = require('../models/user')
+
+
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -50,9 +53,43 @@ test('blogs can be added with post', async () => {
         __v: 0
     }
 
+    const userLogin = {
+        username: "hellas5",
+        password: "sal",
+    }
+
+   /* let userAfterLogin = await api
+            .post('/api/login')
+            .send(userLogin)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+    const userBody = userAfterLogin.body
+    const usetoken = userBody.token*/
+
+
+    const logtoken = jwt.sign(userLogin, process.env.SECRET)
+    //const loginResponse = await api.post("/api/login").send(userLogin)
+    //const token = loginResponse.body.token
+    //console.log("TOKEN!!!!!!!!!!!!!!", token)
+    //console.log("loginResponse.body!!!!!!!!!!!!!!", loginResponse.body)
+    console.log("LOGTOKEN!!!!!!", logtoken)
+    //console.log('Authorization', 'bearer ' + logtoken)
+    //console.log('USETOKEN!!!!',usetoken)
+    //console.log('USERBODY!!!!',userbody)
+    //console.log("loginResponse!!!!!!!!!!!!!!", loginResponse)
+
+    const base = {
+        'Content-Type': 'application/json',
+        Authorization: 'bearer '+ logtoken
+    }
+    console.log('Base:',base)
+
     await api
         .post('/api/blogs')
+        .set(base)
         .send(newBlog)
+        //.set({'Authorization': 'bearer '+logtoken})
         .expect(200)
         .expect('Content-Type', /application\/json/)
 
