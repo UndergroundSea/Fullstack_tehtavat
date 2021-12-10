@@ -39,17 +39,30 @@ blogsRouter.post('/', async (request, response, next) => {
   })
 
   const savedBlog = await blog.save()
-  console.log("WORKS NOW")
-  console.log(user.blogs)
   user.blogs = user.blogs.concat(savedBlog._id)
-  console.log("USER SAVED")
-  console.log(user.blogs)
   await user.save()
  
   response.json(savedBlog.toJSON())
 })
 
 blogsRouter.delete('/:id', async (request, response, next) => {
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if(!request.token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  const blog = await Blog.findById(request.params.id)
+  const user = await User.findById(decodedToken.id)
+  const userid = decodedToken.id
+  console.log("blog.user.id.toString()!!!!!!",blog.user.toString())
+  console.log("userid.toString!!!!!!!!!!!!!!!",userid.toString)
+  console.log("userid!!!!!!!!!!!!!!!",userid)
+  console.log("decodedToken.toString!!!!!!!!!!!!!!!",decodedToken.toString)
+  console.log("decodedToken!!!!!!!!!!!!!!!",decodedToken)
+  if ( blog.user.toString() !== userid ) {
+    return response.status(401).json({ error: 'you do not own this blog' })
+  }
+
   await Blog.findByIdAndRemove(request.params.id)
   response.status(204).end()
 })
