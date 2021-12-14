@@ -7,7 +7,7 @@ const BlogForm = ({
     const [newBlog, setNewBlog] = useState('')
     const [newAuthor, setNewAuthor] = useState('')
     const [newUrl, setNewUrl] = useState('')
-    
+
     const handleTitleChange = (event) => {
         setNewBlog(event.target.value)
     }
