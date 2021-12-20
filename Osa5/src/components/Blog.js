@@ -19,7 +19,6 @@ const Blog = ({ blog }, { ref }) => {
   }
 
   /*const showUser = () => {
-    console.log('HEYYYY', blog, 'hey', blog.user)
     if (blog.user) {
       return blog.user.name
     } else {
@@ -36,7 +35,7 @@ const Blog = ({ blog }, { ref }) => {
   return (
     <div className='blog' style={blogStyle}>
       {blog.title} {blog.author} <button onClick={toggleVisibility} style={hideWhenVisible}>view</button>
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className="hiddenContent">
         {blog.url} <br /> likes {blog.likes} <button>like</button> <br /> {blog.user.name}
         <button onClick={toggleVisibility}>hide</button>
       </div>

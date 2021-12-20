@@ -54,16 +54,6 @@ describe('Blog app', function () {
   })
 
   describe('Deleting a blog', function() {
-    /*beforeEach(function() {
-      cy.get('#username').type('Chuck')
-      cy.get('#password').type('joke')
-      cy.get('#login-button').click()
-      cy.contains('create new blog').click()
-      cy.get('#title').type('a second blog created by cypress')
-      cy.get('#author').type('Cypress42')
-      cy.get('#url').type('https://www.test-page.com')
-      cy.contains('create blog').click()
-    })*/
 
     it('deleting own blog', function() {
       cy.get('#username').type('Chuck')
